@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Free online tools: word counter, QR code generator, unit converter. Clean, responsive and ad-ready." />
+  <title>Multi Tools - Word Counter, QR Generator & Unit Converter</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; font-family: Arial, sans-serif; line-height: 1.6; background: #f9f9f9; color: #222;
+      display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh;
+    }
+    a {
+      color: #0077cc; text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #004a99;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0; font-size: 1.4rem;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    nav button:hover,
+    nav button.active {
+      background: #0077cc;
+    }
+
+    /* Top Banner Ad placeholder */
+    #top-banner-ad {
+      margin-top: 60px; /* header height approx */
+      background: #e1e1e1;
+      text-align: center;
+      padding: 1rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* Main container with sidebar and content */
+    main {
+      display: flex;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      margin-top: 10px;
+    }
+
+    /* Sidebar Sticky Ad */
+    #sidebar-ad {
+      width: 160px;
+      background: #ddd;
+      padding: 1rem;
+      font-weight: bold;
+      color: #444;
+      position: sticky;
+      top: 70px;
+      height: fit-content;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Content area */
+    #content {
+      flex-grow: 1;
+      background: #fff;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
+    }
+
+    /* Tool Sections */
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+
+    /* Tool headings */
+    h2 {
+      margin-top: 0;
+      color: #004a99;
+    }
+
+    /* Form elements */
+    label {
+      display: block;
+      margin: 0.5rem 0 0.25rem;
+    }
+    textarea, input, select {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    button.tool-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #004a99;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    button.tool-btn:hover {
+      background: #0077cc;
+    }
+
+    /* Result styling */
+    #word-count-result, #qr-code, #unit-convert-result {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background: #e8f0fe;
+      border-radius: 4px;
+      color: #004a99;
+      font-weight: bold;
+      min-height: 40px;
+    }
+
+    /* In-Tool Ad Slot */
+    .in-tool-ad {
+      margin: 2rem 0;
+      background: #eee;
+      text-align: center;
+      padding: 1rem;
+      color: #666;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #bbb;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #bbb;
+      margin: 0 0.5rem;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      main {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      #sidebar-ad {
+        width: 100%;
+        position: relative;
+        top: auto;
+        margin-bottom: 1rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Multi Tools</h1>
+    <nav aria-label="Primary navigation">
+      <button aria-current="page" class="active" data-tool="word-counter">Word Counter</button>
+      <button data-tool="qr-generator">QR Code Generator</button>
+      <button data-tool="unit-converter">Unit Converter</button>
+    </nav>
+  </header>
+
+  <div id="top-banner-ad"><!-- Top Banner Ad --><span>Top Banner Ad Placeholder</span></div>
+
+  <main>
+    <aside id="sidebar-ad" aria-label="Advertisement"><!-- Sidebar Sticky Ad -->Sidebar Ad Placeholder</aside>
+
+    <section id="content">
+      <!-- Word Counter -->
+      <section id="word-counter" class="active" role="region" aria-labelledby="wc-label">
+        <h2 id="wc-label">Word Counter</h2>
+        <label for="text-input">Enter your text:</label>
+        <textarea id="text-input" rows="6" placeholder="Type or paste text here..."></textarea>
+        <button class="tool-btn" id="count-btn">Count Words</button>
+        <div id="word-count-result" aria-live="polite"></div>
+        <div class="in-tool-ad"><!-- In-Tool Ad Slot -->In-Content Ad Placeholder</div>
+      </section>
+
+      <!-- QR Code Generator -->
+      <section id="qr-generator" role="region" aria-labelledby="qr-label">
+        <h2 id="qr-label">QR Code Generator</h2>
+        <label for="qr-text">Enter text or URL:</label>
+        <input type="text" id="qr-text" placeholder="Type text or URL here" />
+        <button class="tool-btn" id="generate-qr-btn">Generate QR Code</button>
+        <div id="qr-code" aria-live="polite"></div>
+        <div class="in-tool-ad"><!-- In-Tool Ad Slot -->In-Content Ad Placeholder</div>
+      </section>
+
+      <!-- Unit Converter -->
+      <section id="unit-converter" role="region" aria-labelledby="uc-label">
+        <h2 id="uc-label">Unit Converter</h2>
+        <label for="unit-input">Enter value:</label>
+        <input type="number" id="unit-input" placeholder="Value" />
+        <label for="unit-from">From:</label>
+        <select id="unit-from" aria-label="Convert from unit">
+          <option value="meters">Meters</option>
+          <option value="kilometers">Kilometers</option>
+          <option value="miles">Miles</option>
+          <option value="feet">Feet</option>
+        </select>
+        <label for="unit-to">To:</label>
+        <select id="unit-to" aria-label="Convert to unit">
+          <option value="meters">Meters</option>
+          <option value="kilometers">Kilometers</option>
+          <option value="miles">Miles</option>
+          <option value="feet">Feet</option>
+        </select>
+        <button class="tool-btn" id="convert-btn">Convert</button>
+        <div id="unit-convert-result" aria-live="polite"></div>
+        <div class="in-tool-ad"><!-- In-Tool Ad Slot -->In-Content Ad Placeholder</div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#">Privacy Policy</a> | 
+    <a href="#">Contact</a> | 
+    <a href="#">About</a>
+  </footer>
+
+<script>
+  // Navigation between tools
+  const buttons = document.querySelectorAll('nav button');
+  const sections = document.querySelectorAll('#content > section');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const target = button.getAttribute('data-tool');
+      sections.forEach(sec => {
+        if (sec.id === target) sec.classList.add('active');
+        else sec.classList.remove('active');
+      });
+    });
+  });
+
+  // Word Counter logic
+  const countBtn = document.getElementById('count-btn');
+  const textInput = document.getElementById('text-input');
+  const wordCountResult = document.getElementById('word-count-result');
+
+  countBtn.addEventListener('click', () => {
+    const text = textInput.value.trim();
+    if (!text) {
+      wordCountResult.textContent = 'Please enter some text.';
+      return;
+    }
+    // Count words (split by spaces, filter empty)
+    const words = text.split(/\s+/).filter(w => w.length > 0);
+    wordCountResult.textContent = `Word Count: ${words.length}`;
+  });
+
+  // QR Code Generator logic
+  // We'll use a free JS QR library CDN here for simplicity (allowed since pure JS)
+  // Adding library dynamically
+  (function loadQR() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js';
+    document.head.appendChild(script);
+    script.onload = () => {
+      document.getElementById('generate-qr-btn').disabled = false;
+    };
+  })();
+
+  const qrBtn = document.getElementById('generate-qr-btn');
+  const qrText = document.getElementById('qr-text');
+  const qrCodeDiv = document.getElementById('qr-code');
+
+  qrBtn.disabled = true;
+
+  qrBtn.addEventListener('click', () => {
+    const value = qrText.value.trim();
+    if (!value) {
+      qrCodeDiv.textContent = 'Please enter text or URL.';
+      return;
+    }
+    qrCodeDiv.textContent = ''; // clear previous
+
+    // Generate QR code with library
+    QRCode.toCanvas(value, { width: 200, margin: 1 }, (err, canvas) => {
+      if (err) {
+        qrCodeDiv.textContent = 'Failed to generate QR code.';
+        return;
+      }
+      qrCodeDiv.appendChild(canvas);
+    });
+  });
+
+  // Unit Converter logic
+  const unitInput = document.getElementById('unit-input');
+  const unitFrom = document.getElementById('unit-from');
+  const unitTo = document.getElementById('unit-to');
+  const convertBtn = document.getElementById('convert-btn');
+  const unitResult = document.getElementById('unit-convert-result');
+
+  // Conversion factors to meters
+  const toMeters = {
+    meters: 1,
+    kilometers: 1000,
+    miles: 1609.34,
+    feet: 0.3048
+  };
+
+  convertBtn.addEventListener('click', () => {
+    const value = parseFloat(unitInput.value);
+    if (isNaN(value)) {
+      unitResult.textContent = 'Please enter a valid number.';
+      return;
+    }
+    const from = unitFrom.value;
+    const to = unitTo.value;
+
+    const meters = value * toMeters[from];
+    const converted = meters / toMeters[to];
+
+    unitResult.textContent = `${value} ${from} = ${converted.toFixed(4)} ${to}`;
+  });
+</script>
+</body>
+</html>
